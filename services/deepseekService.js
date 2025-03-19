@@ -48,14 +48,6 @@ async function invokeOllamaChat(message,model) {
   return response.message.content;
 }
 
-// Esegui una query di esempio
-async function main() {
-  const query = "Spiegami il contenuto dei documenti sulla fisica quantistica.";
-  const answer = await askLlama(query);
-  console.log("🔍 Risposta:", answer);
-  db.end();
-}
-
 async function invokeOllamaList() {
   try {
     //console.log("- ollama list...")

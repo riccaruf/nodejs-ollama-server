@@ -26,3 +26,5 @@ Docker service should be up and running (sudo docker service start)
 - SELECT * FROM pg_extension WHERE extname = 'vector';
 
 - sudo docker logs pgvector
+
+- https://sbert.net/index.html to allow the correct vectorization of a document.
