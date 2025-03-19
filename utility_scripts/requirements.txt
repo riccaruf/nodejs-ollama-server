@@ -1,0 +1,8 @@
+langchain
+openai
+torch
+transformers
+sentence-transformers
+pdfplumber
+psycopg2-binary
+python-docx
