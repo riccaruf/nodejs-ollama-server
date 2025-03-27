@@ -37,6 +37,7 @@ async function searchDocuments(query, model) {
 
 async function invokeOllamaChat(message,model) {
   const context = await searchDocuments(message,model);
+  console.info("- model:",model);
   const response = await ollama.chat({
       model: model,
       messages: [
@@ -45,6 +46,30 @@ async function invokeOllamaChat(message,model) {
       ]
   });
 
+  return response.message.content;
+}
+
+
+async function describeOllamaImage(imagePath,model) {
+  //const context = await searchDocuments(message,model);
+  const fs = require('fs');
+  const imageBuffer = fs.readFileSync(imagePath);
+  const base64Image = imageBuffer.toString("base64");
+
+  // Prompt per Ollama con l'immagine in base64
+  const prompt = `Descrivi l'immagine seguente in dettaglio:\n\n![image](data:image/jpeg;base64,${base64Image})`;
+  console.info("- model:",JSON.parse(model).model);
+  
+  // Invoca Ollama con la libreria ollama
+  const response = await ollama.chat({
+    model: JSON.parse(model).model,
+    messages: [{ role: "user", content: "Cosa vedi in questa immagine?", images: [base64Image] }]
+  });
+  
+
+  // Cancella il file temporaneo
+  fs.unlinkSync(imagePath);
+  console.info("- response.message.content:",response.message.content);
   return response.message.content;
 }
 
@@ -79,5 +104,8 @@ exports.getFitnessAdvice = async (message, model) => {
 
 exports.getModelList = async () => {
   return invokeOllamaList();
- 
+};
+
+exports.describeImage = async (imagePath, model) => {
+  return describeOllamaImage(imagePath, model);
 };
