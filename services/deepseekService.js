@@ -57,13 +57,35 @@ async function describeOllamaImage(imagePath,model) {
   const base64Image = imageBuffer.toString("base64");
 
   // Prompt per Ollama con l'immagine in base64
-  const prompt = `Descrivi l'immagine seguente in dettaglio:\n\n![image](data:image/jpeg;base64,${base64Image})`;
-  console.info("- model:",JSON.parse(model).model);
+  //const prompt = `Descrivi l'immagine seguente in dettaglio:\n\n![image](data:image/jpeg;base64,${base64Image})`;
+  const promptThera = `What is in this image?
+Provide numeric details about the nutritional information: how many carbohydrates, sugars, fibers, proteins, and fats are in the meal (these are in grams and make them as precise as possible with double precision floating-point numbers),
+what is the portion size of the meal in grams, what is the glycemic index (this is between 0 and 100) of the meal.
+Provide the nutritional information grams in a table with the title 'Nutrition Values' and separated by ';' and with a '-' at the beginning.
+Example: Nutrition Values
+- Carbohydrates: 45-60 grams from the pasta;
+- Protein: 30-40 grams form the chicken;
+never use the approximately or '~' or '-;' , if you don't know put 0 grams. Always same format.
+Make sure that the sum of all the nutritional information equals the total carbohydrates.
+Provide a list of the main ingredients, e.g.: fries, ketchup, meat, and just that, one ingredient, ideally one word.
+Pay special attention if they mention the meal size. Determine the nutritional information based on the meal size.
+Estimate the confidence of the correctness of your response, it must be one of the following: HIGH. 
+If you cannot estimate confidence, then return LOW.
+Also return the name of the meal as a string, without underscores.
+The name of the meal and the ingredients should all be in Italian.`
+  //console.info("- model:",JSON.parse(model).model);
   
   // Invoca Ollama con la libreria ollama
   const response = await ollama.chat({
     model: JSON.parse(model).model,
-    messages: [{ role: "user", content: "Cosa vedi in questa immagine?", images: [base64Image] }]
+    messages: [
+      { role: 'system', content: "Sei un nutrizionista esperto in diagnosi alimentari e diabete, parli in italiano, devi valutare le immagini dei piatti che vengono calcolati dal punto di vista calorico." },
+      //{ role: "user", content: "Cosa vedi in questa immagine? Mi fornisci anche l'impatto calorico , puoi rispondere in italiano.", images: [base64Image] }]
+      //{ role: "user", content: "Valuta le calorie del piatto che vedi ed esprimile in chilocalorie. Fornisci un numero sulla base di stime che sei in grado di fare. Stima la quantità. Stima il condimento. Mi serve un numero.", images: [base64Image] }]
+      //{ role: "user", content: "Valuta le calorie del piatto che vedi ed esprimile in chilocalorie. Fornisci un numero sulla base di stime che sei in grado di fare. Stima la quantità. Stima il condimento. Mi serve un numero ed una risposta molto sintetica.", images: [base64Image] }]
+      { role: "user", content: promptThera, images: [base64Image] }]
+
+
   });
   
 
@@ -97,7 +119,7 @@ async function invokeOllamaList() {
 }
 
 exports.getFitnessAdvice = async (message, model) => {
-   console.log('getFitnessAdvice');
+   //console.log('getFitnessAdvice');
    return invokeOllamaChat(message,model);
  
 };
