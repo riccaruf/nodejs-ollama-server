@@ -59,15 +59,25 @@ async function describeOllamaImage(imagePath,model) {
   // Prompt per Ollama con l'immagine in base64
   //const prompt = `Descrivi l'immagine seguente in dettaglio:\n\n![image](data:image/jpeg;base64,${base64Image})`;
   const promptThera = `What is in this image?
-Provide numeric details about the nutritional information: how many carbohydrates, sugars, fibers, proteins, and fats are in the meal (these are in grams and make them as precise as possible with double precision floating-point numbers),
+Provide numeric details about the nutritional information: how many carbohydrates, sugars, fibers, proteins, and fats 
+are in the meal (these are in grams and make them as precise as possible with double precision floating-point numbers),
 what is the portion size of the meal in grams, what is the glycemic index (this is between 0 and 100) of the meal.
-Provide the nutritional information grams in a table with the title 'Nutrition Values' and separated by ';' and with a '-' at the beginning.
+Provide the nutritional information grams in a table with the title 'Nutrition Values' and separated by ';' and with a '-' 
+at the beginning.
 Example: Nutrition Values
 - Carbohydrates: 45-60 grams from the pasta;
-- Protein: 30-40 grams form the chicken;
-never use the approximately or '~' or '-;' , if you don't know put 0 grams. Always same format.
+- Proteins: 30-40 grams form the chicken;
+- Sugars: 10-20 grams from whatever;
+- Fibers: 10-20 grams from whatever;
+- Fats: 1-2 grams from whatever;
+- Glycemic Index: 10;
+- Meal name: pasta with something;
+- Confidence: LOW;
+- PortionSize: 150 grams;
+- Ingredients: pasta, meat;
+Use always this table format.
 Make sure that the sum of all the nutritional information equals the total carbohydrates.
-Provide a list of the main ingredients, e.g.: fries, ketchup, meat, and just that, one ingredient, ideally one word.
+Provide a list of the main ingredients in the ingredients field, e.g.: fries, ketchup, meat, and just that, one ingredient, ideally one word.
 Pay special attention if they mention the meal size. Determine the nutritional information based on the meal size.
 Estimate the confidence of the correctness of your response, it must be one of the following: HIGH. 
 If you cannot estimate confidence, then return LOW.
