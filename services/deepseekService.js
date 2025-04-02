@@ -62,22 +62,22 @@ async function describeOllamaImage(imagePath,model) {
 Provide numeric details about the nutritional information: how many carbohydrates, sugars, fibers, proteins, and fats 
 are in the meal (these are in grams and make them as precise as possible with double precision floating-point numbers),
 what is the portion size of the meal in grams, what is the glycemic index (this is between 0 and 100) of the meal.
-Provide the nutritional information grams in a table with the title 'Nutrition Values' and separated by ';' and with a '-' 
-at the beginning.
+Provide the nutritional information grams in a table with the title 'Nutrition Values'.
 Example: Nutrition Values
-- Carbohydrates: 45-60 grams from the pasta;
-- Proteins: 30-40 grams form the chicken;
-- Sugars: 10-20 grams from whatever;
-- Fibers: 10-20 grams from whatever;
-- Fats: 1-2 grams from whatever;
-- Glycemic Index: 10;
-- Meal name: pasta with something;
-- Confidence: LOW;
-- PortionSize: 150 grams;
-- Ingredients: pasta, meat;
+- Carbohydrates: xx-yy grams ; 
+- Proteins: xx-yy grams ;
+- Sugars: xx-yy grams ;
+- Fibers: xx-yy grams ;
+- Fats: xx-yy grams ;
+- GlycemicIndex: xx;
+- MealName: pasta with something;
+- Confidence: xx;
+- PortionSize: xx grams;
+- Ingredients: zz, qq;
 Use always this table format.
+Please replace xx, yy, zz, qq placeholder with the right values you choose.
 Make sure that the sum of all the nutritional information equals the total carbohydrates.
-Provide a list of the main ingredients in the ingredients field, e.g.: fries, ketchup, meat, and just that, one ingredient, ideally one word.
+Provide a list of the the Ingredients in the previous example descripted field called Ingredients.
 Pay special attention if they mention the meal size. Determine the nutritional information based on the meal size.
 Estimate the confidence of the correctness of your response, it must be one of the following: HIGH. 
 If you cannot estimate confidence, then return LOW.
@@ -94,8 +94,6 @@ The name of the meal and the ingredients should all be in Italian.`
       //{ role: "user", content: "Valuta le calorie del piatto che vedi ed esprimile in chilocalorie. Fornisci un numero sulla base di stime che sei in grado di fare. Stima la quantità. Stima il condimento. Mi serve un numero.", images: [base64Image] }]
       //{ role: "user", content: "Valuta le calorie del piatto che vedi ed esprimile in chilocalorie. Fornisci un numero sulla base di stime che sei in grado di fare. Stima la quantità. Stima il condimento. Mi serve un numero ed una risposta molto sintetica.", images: [base64Image] }]
       { role: "user", content: promptThera, images: [base64Image] }]
-
-
   });
   
 
@@ -113,13 +111,13 @@ async function invokeOllamaList() {
     // Supponiamo che la risposta contenga un campo 'reply' con il testo generato
     let modelsJson = []
     for (let i = 0; i < response.models.length; i++) {
-      console.log(`ID: ${i + 1}, Nome: ${response.models[i].name}`);
+      //console.log(`ID: ${i + 1}, Nome: ${response.models[i].name}`);
       modelsJson.push({
         id: response.models[i].model,
         name: response.models[i].name
       })
     }
-    console.log('modelsJson:', modelsJson);
+    //console.log('modelsJson:', modelsJson);
     
     return modelsJson;
 
