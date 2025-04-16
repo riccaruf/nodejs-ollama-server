@@ -7,6 +7,9 @@ import subprocess
 import uvicorn
 
 app = FastAPI()
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
+sys.stderr.reconfigure(encoding='utf-8')
 
 @app.post("/annotate")
 async def annotate_image(
@@ -36,7 +39,14 @@ async def annotate_image(
         f"line_thickness={line_thickness}"
     ]
 
-    result = subprocess.run(command, capture_output=True, text=True)
+    #result = subprocess.run(command, capture_output=True, text=True)
+    result = subprocess.run(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        errors='ignore'  # <-- ignora caratteri non decodificabili
+    )
 
     if result.returncode != 0:
         return JSONResponse(

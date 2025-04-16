@@ -1,5 +1,8 @@
 # dependencies
 node_modules/
 utility_scripts/venv/
-utility_scripts/docs/
+utility_scripts/Food-Detection/
+utility_scripts/ultralytics/
+utility_scripts/temp/
+utility_scripts/__pycache__/
 uploads/

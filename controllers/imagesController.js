@@ -11,8 +11,11 @@ exports.processImagesUpload = async (req, res) => {
     // Percorso dell'immagine salvata
     const imagePath = req.files[0].path;
     const model = req.body.model;
+    const customQuantity = req.body.customQuantity;
     console.log('model', model);
-    const reply = await describeImage(imagePath,model);
+    console.log('customQuantity', customQuantity);
+    
+    const reply = await describeImage(imagePath,model,customQuantity);
     res.json(reply);
   }catch(err){
 
