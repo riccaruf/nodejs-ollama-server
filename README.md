@@ -1,6 +1,4 @@
-# Welcome to your Expo app 👋
-
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Welcome to your yolo ollama backend services👋
 
 ## Get started
 
@@ -13,7 +11,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 2. Start the app
 
    ```bash
-    npx run dev
+    npm run dev
    ```
 
 Ollama should be up and running on your local machine bash ( > ollama serve)
