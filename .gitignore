@@ -5,4 +5,5 @@ utility_scripts/Food-Detection/
 utility_scripts/ultralytics/
 utility_scripts/temp/
 utility_scripts/__pycache__/
-uploads/
+
+venv/
