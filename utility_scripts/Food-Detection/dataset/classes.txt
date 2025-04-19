@@ -1,0 +1,13 @@
+Apple, 
+Chapathi, 
+Chicken Gravy, 
+Fries, 
+Idli, 
+Pizza, 
+Rice, 
+Soda, 
+Tomato, 
+Vada, 
+banana, 
+burger,
+pasta-pomodoro
